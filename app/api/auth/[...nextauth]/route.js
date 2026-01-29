@@ -38,8 +38,7 @@ export const authoptions =  NextAuth({
     callbacks: {
       async signIn({ user, account, profile, email, credentials }) {
          if(account.provider == "github") { 
-          await connectDb("mongodb://localhost:27017/chai")
-          // Check if the user already exists in the database
+          await connectDb(process.env.MONGO_URI)          // Check if the user already exists in the database
           const currentUser =  await User.findOne({email: email}) 
           if(!currentUser){
             // Create a new user
